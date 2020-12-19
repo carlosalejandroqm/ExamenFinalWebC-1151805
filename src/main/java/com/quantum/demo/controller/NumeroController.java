@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.quantum.demo.dao.NumeroDAO;
 import com.quantum.demo.model.Numero;
-import com.quantum.demo.services.NumeroServicioImp;
 
 @Controller
 public class NumeroController {
 
 	@Autowired
-	NumeroServicioImp nDAO;
+	NumeroDAO nDAO;
 
 	@GetMapping({ "/", "/index" })
 	public String list(Model model) {
@@ -43,23 +42,4 @@ public class NumeroController {
 		return "formulario";
 
 	}
-
-	@RequestMapping(value = "/formulario/{id}")
-	public String editar(@PathVariable(value = "id") String codigo, Model model) {
-		Numero Numero = nDAO.findById(codigo);
-		model.addAttribute("Numero", Numero);
-
-		return "formulario";
-
-	}
-
-	@RequestMapping(value = "/eliminar/{id}")
-	public String eliminar(@PathVariable(value = "id") String codigo, Model model) {
-		Numero Numero = nDAO.findById(codigo);
-		nDAO.deleteById(codigo);
-
-		return "redirect:/index";
-
-	}
-
 }

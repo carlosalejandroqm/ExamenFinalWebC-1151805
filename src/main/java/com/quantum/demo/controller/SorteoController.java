@@ -12,54 +12,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.quantum.demo.dao.SorteoDAO;
 import com.quantum.demo.model.Sorteo;
-import com.quantum.demo.services.SorteoServicioImp;
+
 
 @Controller
 public class SorteoController {
 
 	@Autowired
-	SorteoServicioImp sDAO;
-
-	@GetMapping({ "/", "/index" })
-	public String list(Model model) {
-		model.addAttribute("list", sDAO.findAll());
+	SorteoDAO sorteoDAO;
+	
+	
+	@RequestMapping(value = "/index")
+	public String crear(Model model) {
+		Sorteo sorteo = new Sorteo();
+		model.addAttribute("sorteo", sorteo);
+		
 		return "index";
 	}
 
-	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String guardar(@Validated Sorteo Sorteo, BindingResult result, Model model) {
-
-		sDAO.save(Sorteo);
-
-		return "redirect:index";
-
+	@RequestMapping(value = "/formulario" , method = RequestMethod.POST)
+	public String registrar( @Validated Sorteo sorteo,Model model) {
+	
+		sorteoDAO.save(sorteo);
+		return "index";
 	}
-
-	@RequestMapping(value = "/form/")
-	public String crear(Model model) {
-		Sorteo Sorteo = new Sorteo();
-		model.addAttribute("Sorteo", Sorteo);
-
-		return "form";
-
+	
+	@RequestMapping(value = "/lista")
+	public String list(Model model) {
+		model.addAttribute("listaSorteos", sorteoDAO.findAll());
+		
+		return "lista";
 	}
-
-	@RequestMapping(value = "/form/{id}")
-	public String editar(@PathVariable(value = "id") String codigo, Model model) {
-		Sorteo Sorteo = sDAO.findById(codigo);
-		model.addAttribute("Sorteo", Sorteo);
-
-		return "form";
-
-	}
-
-	@RequestMapping(value = "/eliminar/{id}")
-	public String eliminar(@PathVariable(value = "id") String codigo, Model model) {
-		Sorteo Sorteo = sDAO.findById(codigo);
-		sDAO.deleteById(codigo);
-
-		return "redirect:/index";
-
-	}
-
 }

@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.quantum.demo.dao.BoletaDAO;
 import com.quantum.demo.model.Boleta;
-import com.quantum.demo.services.BoletaServicioImp;
 
 @Controller
 public class BoletaController {
 
 	@Autowired
-	BoletaServicioImp bDAO;
+	BoletaDAO bDAO;
 
 	@GetMapping({ "/", "/index" })
 	public String list(Model model) {
@@ -44,22 +43,5 @@ public class BoletaController {
 
 	}
 
-	@RequestMapping(value = "/formulario/{id}")
-	public String editar(@PathVariable(value = "id") String codigo, Model model) {
-		Boleta Boleta = bDAO.findById(codigo);
-		model.addAttribute("Boleta", Boleta);
-
-		return "formulario";
-
-	}
-
-	@RequestMapping(value = "/eliminar/{id}")
-	public String eliminar(@PathVariable(value = "id") String codigo, Model model) {
-		Boleta Boleta = bDAO.findById(codigo);
-		bDAO.deleteById(codigo);
-
-		return "redirect:/index";
-
-	}
 
 }

@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.quantum.demo.dao.PersonaDAO;
 import com.quantum.demo.model.Persona;
-import com.quantum.demo.services.PersonaServicioImp;
+
 
 @Controller
 public class PersonaController {
 
 	@Autowired
-	PersonaServicioImp pDAO;
+	PersonaDAO pDAO;
 
 	@GetMapping({ "/", "/index" })
 	public String list(Model model) {
@@ -44,22 +44,6 @@ public class PersonaController {
 
 	}
 
-	@RequestMapping(value = "/formulario/{id}")
-	public String editar(@PathVariable(value = "id") String codigo, Model model) {
-		Persona Persona = pDAO.findById(codigo);
-		model.addAttribute("Persona", Persona);
 
-		return "formulario";
-
-	}
-
-	@RequestMapping(value = "/eliminar/{id}")
-	public String eliminar(@PathVariable(value = "id") String codigo, Model model) {
-		Persona Persona = pDAO.findById(codigo);
-		pDAO.deleteById(codigo);
-
-		return "redirect:/index";
-
-	}
 
 }

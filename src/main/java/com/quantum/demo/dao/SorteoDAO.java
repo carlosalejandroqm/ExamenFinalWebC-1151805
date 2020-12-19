@@ -1,5 +1,9 @@
 package com.quantum.demo.dao;
 
-public class SorteoDAO {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.quantum.demo.model.Sorteo;
+
+public interface SorteoDAO extends JpaRepository<Sorteo, String> {
 
 }
