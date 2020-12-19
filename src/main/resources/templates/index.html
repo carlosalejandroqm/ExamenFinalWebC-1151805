@@ -27,24 +27,18 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>codigo</th>
-						<th>cedula</th>
-						<th>fecha ingreso</th>
-						<th>fecha nacimiento</th>
-						<th>fecha retiro</th>
-						<th>nombre</th>
-						<th>editar</th>
-						<th>nombre</th>
+						<th>Sorteo</th>
+						<th>Fecha</th>
+						<th>Boletas</th>
+						<th>Numero</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="empleado: ${list}">
-						<td th:text="${empleado.codigo}">
-						<td th:text="${empleado.cedula}">
+					<tr th:each="sorteo: ${list}">
+						<td th:text="${sorteo.codigo}">
+						<td th:text="${sorteo.persona}">
 						<td><a class="btn btn-info"
-							th:href="@{/formularioulario/}+${empleado.codigo}">Editar</a></td>
-						<td><a class="btn btn-danger"
-							th:href="@{/eliminar/{id}(id=${empleado.codigo})}">Eliminar</a></td>
+							th:href="@{/formulario/}+${sorteo.codigo}">Editar</a></td>
 					</tr>
 				</tbody>
 			</table>
